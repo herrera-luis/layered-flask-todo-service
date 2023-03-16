@@ -1,0 +1,33 @@
+version: '3'
+services:
+  api:
+    build: ./
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - 8000:8000
+    environment:
+      DATABASE_URL: "postgresql://todo-user:todo-password@database/todo"
+      HOST: "0.0.0.0"
+      PORT: 8000
+      FLASK_DEBUG: 1
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: postgres:15.2-alpine
+    container_name: database
+    environment:
+      POSTGRES_PASSWORD: todo-password
+      POSTGRES_USER: todo-user
+      POSTGRES_DB: todo
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "sh -c 'pg_isready -U \"todo-user\" -d todo'"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 2

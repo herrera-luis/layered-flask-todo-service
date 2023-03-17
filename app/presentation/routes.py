@@ -27,7 +27,7 @@ def register_routes(app):
     def update_todo(todo_id):
         data = request.get_json()
         todo = TodoService.get_todo_by_id(todo_id)
-        updated_todo = TodoService.update_todo(todo,
+        updated_todo = TodoService.update_todo(todo_id,
                                                title=data.get('title', None),
                                                description=data.get(
                                                    'description', None),
@@ -38,6 +38,6 @@ def register_routes(app):
     @app.route('/todos/<int:todo_id>', methods=['DELETE'])
     def delete_todo(todo_id):
         todo = TodoService.get_todo_by_id(todo_id)
-        TodoService.delete_todo(todo)
+        TodoService.delete_todo(todo_id)
         app.logger.info(f"Todo deleted: {todo.serialize()}")
-        return jsonify({"message": "Todo deleted"})
+        return jsonify({"message": "Todo deleted"}), 204

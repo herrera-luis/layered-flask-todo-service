@@ -151,3 +151,4 @@ tmp/
 .vscode
 .vscode/*
 .idea
+logs/

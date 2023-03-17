@@ -1,4 +1,5 @@
 from app.domain.models import Todo, db
+from flask import abort
 
 
 class TodoService:
@@ -15,10 +16,11 @@ class TodoService:
 
     @staticmethod
     def get_todo_by_id(todo_id):
-        return Todo.query.get_or_404(todo_id)
+        return get_or_404(Todo, todo_id)
 
     @staticmethod
-    def update_todo(todo, title=None, description=None, status=None):
+    def update_todo(todo_id, title=None, description=None, status=None):
+        todo = get_or_404(Todo, todo_id)
         if title is not None:
             todo.title = title
         if description is not None:
@@ -29,6 +31,15 @@ class TodoService:
         return todo
 
     @staticmethod
-    def delete_todo(todo):
+    def delete_todo(todo_id):
+        todo = get_or_404(Todo, todo_id)
         db.session.delete(todo)
         db.session.commit()
+        return True
+
+
+def get_or_404(model, primary_key):
+    instance = db.session.get(model, primary_key)
+    if instance is None:
+        abort(404)
+    return instance

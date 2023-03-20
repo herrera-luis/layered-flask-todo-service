@@ -7,7 +7,7 @@ def register_routes(app):
     def create_todo():
         data = request.get_json()
         todo = TodoService.create_todo(
-            title=data['title'], description=data.get('description', None))
+            title=data['title'], description=data.get('description', None), status=data.get('status', 'todo'))
         app.logger.info(f"Todo created: {todo.serialize()}")
         return jsonify(todo.serialize()), 201
 

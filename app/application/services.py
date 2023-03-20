@@ -4,8 +4,8 @@ from flask import abort
 
 class TodoService:
     @staticmethod
-    def create_todo(title, description=None):
-        todo = Todo(title=title, description=description)
+    def create_todo(title, description=None, status="todo"):
+        todo = Todo(title=title, description=description, status=status)
         db.session.add(todo)
         db.session.commit()
         return todo

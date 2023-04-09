@@ -1,8 +1,7 @@
 from flask import Flask
-from flask_migrate import Migrate, upgrade
 from .config import Config
-from .infrastructure.database import db
-from .presentation.routes import register_routes
+from .database.db import db
+from .api.v1.routes import blueprint_api_v1, blueprint_base
 import logging
 from logging.handlers import RotatingFileHandler
 import os
@@ -38,6 +37,7 @@ def create_app():
     logging.basicConfig(level=logging.INFO
                         )
     db.init_app(app)
-    register_routes(app)
+    app.register_blueprint(blueprint_api_v1, url_prefix='/api/v1')
+    app.register_blueprint(blueprint_base, url_prefix='')
 
     return app

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate, upgrade
 from .config import Config
-from .infrastructure.database import db
+from .database.db import db
 
 
 def init_migration():

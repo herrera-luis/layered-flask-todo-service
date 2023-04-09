@@ -1,7 +1,7 @@
 import unittest
-from app.application.services import TodoService
-from app.domain.models import Todo
-from app.infrastructure.database import db
+from app.services.todo_service import TodoService
+from app.models.todo import Todo
+from app.database.db import db
 from app.config import Config
 from flask import Flask
 from werkzeug.exceptions import NotFound

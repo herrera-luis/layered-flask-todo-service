@@ -13,17 +13,29 @@ services:
       FLASK_DEBUG: 1
     depends_on:
       - database
-      - db-migration
+      - db-upgrade-migration
 
-  db-migration:
+  db-upgrade-migration:
     build: ./
-    container_name: db-migration
+    container_name: db-upgrade-migration
     volumes:
       - ./:/usr/src/app/
     environment:
       DATABASE_URL: "postgresql://todo-user:todo-password@database/todo"
       FLASK_APP: /usr/src/app/run-db-migrations.py
     command: sh -c "flask db upgrade"
+    depends_on:
+      - db-generate-migration
+
+  db-generate-migration:
+    build: ./
+    container_name: db-generate-migration
+    volumes:
+      - ./:/usr/src/app/
+    environment:
+      DATABASE_URL: "postgresql://todo-user:todo-password@database/todo"
+      FLASK_APP: /usr/src/app/run-db-migrations.py
+    command: sh -c "flask db migrate -m "generating a new migration""
     depends_on:
       database:
         condition: service_healthy

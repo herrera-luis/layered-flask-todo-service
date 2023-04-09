@@ -1,4 +1,4 @@
-from app.domain.models import Todo, db
+from app.models.todo import Todo, db
 from flask import abort
 
 

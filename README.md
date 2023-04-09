@@ -1,6 +1,6 @@
 ## TODO Service
 
-This TODO App is a simple API application developed using a Layered Architecture style. It demonstrates how to create, read, update, and delete TODO items while applying best practices and design principles.
+This TODO service is a simple API application developed using a Layered Architecture style. It demonstrates how to create, read, update, and delete TODO items while applying best practices and design principles.
 
 ## Features
 
@@ -39,3 +39,5 @@ docker-compose down
 ```
 
 5. For more information on the API endpoints and how to use them, please refer to the API documentation http://localhost:8000/api/v1/doc/.
+
+![todo](todo.png)

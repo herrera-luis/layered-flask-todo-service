@@ -47,6 +47,8 @@ services:
       POSTGRES_PASSWORD: todo-password
       POSTGRES_USER: todo-user
       POSTGRES_DB: todo
+    ports:
+      - 5432:5432
     healthcheck:
       test:
         [

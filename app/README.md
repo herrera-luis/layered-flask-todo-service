@@ -4,7 +4,7 @@ In the TODO service, the `models/`, `services/`, `api/`, and `database/` directo
 
 ## Presentation Layer: api/
 
-This layer is responsible for handling user interactions and presenting data to the end user. In the context of the TODO service, the `api/` directory contains the routes, controllers, and resources that define the RESTful API endpoints. These components receive requests from clients, process them by invoking the appropriate services from the Business Layer, and return responses in the desired format (such as JSON).
+This layer is responsible for handling user interactions and presenting data to the end user. In the context of the TODO service, the `api/` directory contains the routes and resources that define the RESTful API endpoints. These components receive requests from clients, process them by invoking the appropriate services from the Business Layer, and return responses in the desired format (such as JSON).
 
 ## Business Layer: models/ and services/
 

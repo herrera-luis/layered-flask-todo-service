@@ -4,9 +4,9 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-api = Namespace('todos', description='Todo operations')
+api = Namespace('todos', description='TODO operations')
 
-todo_model = api.model('Todo', {
+todo_model = api.model('TODO', {
     'id': fields.Integer(readonly=True, description='The unique identifier of the todo'),
     'title': fields.String(required=True, description='The title of the todo'),
     'description': fields.String(description='The description of the todo'),

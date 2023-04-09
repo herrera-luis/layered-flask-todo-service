@@ -7,9 +7,9 @@ blueprint_api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 blueprint_base = Blueprint('base', __name__, url_prefix='')
 
 api = Api(blueprint_api_v1,
-          title='Todo API',
+          title='TODO API',
           version='1.0',
-          description='A simple Todo API',
+          description='A simple TODO API',
           doc='/doc/')
 
 api.add_namespace(todo_ns)

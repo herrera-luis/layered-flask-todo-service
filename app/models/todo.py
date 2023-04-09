@@ -1,5 +1,9 @@
 from app.database.db import db
-from datetime import datetime
+from datetime import datetime, timedelta
+
+
+def utc2local():
+    return datetime.utcnow() - timedelta(hours=5)
 
 
 class Todo(db.Model):
@@ -7,9 +11,10 @@ class Todo(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(200))
     status = db.Column(db.String(20), nullable=False, default="todo")
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(
+        db.DateTime, default=utc2local)
     updated_at = db.Column(
-        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+        db.DateTime, default=utc2local, onupdate=utc2local)
 
     def serialize(self):
         return {

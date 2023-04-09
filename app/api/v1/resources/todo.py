@@ -11,6 +11,7 @@ todo_model = api.model('TODO', {
     'title': fields.String(required=True, description='The title of the todo'),
     'description': fields.String(description='The description of the todo'),
     'status': fields.String(description='The status of the todo'),
+    "created_at": fields.DateTime(description='The date when the todo was created')
 })
 
 todo_parser = api.parser()

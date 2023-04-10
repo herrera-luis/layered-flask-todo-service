@@ -1,10 +1,12 @@
 ## TODO Service
 
-This TODO service is a simple API application developed using a Layered Architecture style. It demonstrates how to create, read, update, and delete TODO items while applying best practices and design principles.
+This TODO service is a simple API application developed using a Layered Architecture structure partitioning. It demonstrates how to create, read, update, and delete TODO items while applying best practices and design principles.
+
+If you want to get more context about this service visit the post: [Software Architectures: Styles and Structure Partitioning](https://luisherrera.dev/software-architectures-styles-and-structure-partitioning#heading-todo-system-example)
 
 ## Features
 
-* **Layered Architecture:** The app uses a Layered Architecture style, with clear separation between API routes, services, and models.
+* **Layered Architecture:** The app uses a Layered Architecture structure partitioning, with clear separation between API routes, services, and models.
 * **RESTful API:** The app exposes RESTful API endpoints to manage TODO items, including creating, retrieving, updating, and deleting operations.
 * **OpenAPI Specification (Swagger):** The API is documented using the OpenAPI Specification, making it easy to understand and interact with the available endpoints.
 * **Database Integration:** The app integrates with a database to store and manage the TODO items.

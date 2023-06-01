@@ -42,4 +42,4 @@ docker-compose down
 
 5. For more information on the API endpoints and how to use them, please refer to the API documentation http://localhost:8000/api/v1/doc/.
 
-![todo](todo_api.png)
+![todo](todo.png)

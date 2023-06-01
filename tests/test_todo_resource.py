@@ -40,19 +40,19 @@ class TodoResource(unittest.TestCase):
 
     def test_create_todo(self):
         response = self.client.post(
-            "/api/v1/todos/",
+            "/api/v1/todo",
             json={"title": "Test Todo", "description": "Test todo description"})
         self.assertEqual(response.status_code, 201)
 
     def test_get_todos(self):
-        response = self.client.get("/api/v1/todos/")
+        response = self.client.get("/api/v1/todo")
         self.assertEqual(response.status_code, 200)
 
     def test_update_todo(self):
         todo = self.create_todo()
 
         response = self.client.put(
-            f"/api/v1/todos/{todo.id}",
+            f"/api/v1/todo/{todo.id}",
             data=json.dumps({"title": "Updated test todo",
                              "description": "Updated test todo description"}),
             content_type="application/json",
@@ -61,18 +61,18 @@ class TodoResource(unittest.TestCase):
 
     def test_delete_todo(self):
         todo = self.create_todo()
-        response = self.client.delete(f"/api/v1/todos/{todo.id}")
+        response = self.client.delete(f"/api/v1/todo/{todo.id}")
         self.assertEqual(response.status_code, 204)
 
     def test_get_todo(self):
         todo = self.create_todo()
 
-        response = self.client.get(f"/api/v1/todos/{todo.id}")
+        response = self.client.get(f"/api/v1/todo/{todo.id}")
         self.assertEqual(response.status_code, 200)
 
     def test_invalid_input(self):
         response = self.client.post(
-            "/api/v1/todos/",
+            "/api/v1/todo",
             json={
                 "description": "Test todo description",
                 "done": False,
@@ -82,7 +82,7 @@ class TodoResource(unittest.TestCase):
 
     def test_update_nonexistent_todo(self):
         response = self.client.put(
-            "/api/v1/todos/99999999",
+            "/api/v1/todo/99999999",
             json={
                 "title": "Updated test todo",
                 "description": "Updated test todo description",
@@ -93,7 +93,7 @@ class TodoResource(unittest.TestCase):
 
     def test_delete_nonexistent_todo(self):
         response = self.client.delete(
-            "/api/v1/todos/99999999",
+            "/api/v1/todo/99999999",
             json={
                 "title": "Delete test todo",
                 "description": "Delete test todo description",

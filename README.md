@@ -28,7 +28,7 @@ cd layered-flask-todo-service/
 2. Build and run the app using Docker Compose:
 
 ```bash
-docker-compose up --build
+docker-compose up
 ```
 This command will build the Docker images and start the containers for the TODO App and its associated services (e.g., the database).
 

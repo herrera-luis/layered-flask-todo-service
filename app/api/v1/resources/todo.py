@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-api = Namespace('todos', description='TODO operations')
+api = Namespace('/', description='TODO operations')
 
 todo_model = api.model('TODO', {
     'id': fields.Integer(readonly=True, description='The unique identifier of the todo'),
@@ -21,7 +21,7 @@ todo_parser.add_argument('description', type=str, default='')
 todo_parser.add_argument('status', type=str, default='todo')
 
 
-@api.route('/<int:todo_id>')
+@api.route('todo/<int:todo_id>')
 class TodoResource(Resource):
     @api.doc('get_todo')
     @api.marshal_with(todo_model)
@@ -67,7 +67,7 @@ class TodoResource(Resource):
         return {"message": "An error occurred while deleting the TODO"}, 500
 
 
-@ api.route('/')
+@ api.route('/todo')
 class TodoListResource(Resource):
     @ api.doc('list_todos')
     @ api.marshal_list_with(todo_model)

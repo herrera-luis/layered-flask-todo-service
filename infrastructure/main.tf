@@ -57,16 +57,17 @@ resource "azurerm_linux_web_app" "todo_app" {
     application_stack {
       python_version = "3.9"
     }
-    app_command_line = "cd layered-flask-todo-service-0.0.1 && pip install -r requirements.txt && python run.py"
+    app_command_line = "cd layered-flask-todo-service-0.0.3 && pip install -r requirements.txt && python run.py"
     always_on = false
   }
   
 
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = "https://github.com/herrera-luis/layered-flask-todo-service/archive/refs/tags/v0.0.1.zip"
+    "WEBSITE_RUN_FROM_PACKAGE" = "https://github.com/herrera-luis/layered-flask-todo-service/archive/refs/tags/v0.0.3.zip"
     "DATABASE_URL"             = "postgresql://${var.db_username}:${var.db_password}@database/${local.database}"
     "HOST"                     = "0.0.0.0"
     "PORT"                     = "80"
+    "LOG_DIR"                  = "/home"
   }
 
   depends_on = [

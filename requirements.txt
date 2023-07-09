@@ -2,5 +2,5 @@ Flask==2.2.3
 Flask-SQLAlchemy==3.0.3
 Flask-Migrate==4.0.4
 Flask-Cors==3.0.10
-psycopg2==2.9.5
+psycopg2-binary==2.9.5
 flask-restx==1.1.0

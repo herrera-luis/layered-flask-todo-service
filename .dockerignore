@@ -1,1 +1,8 @@
 venv/
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+*.tfvars
+infrastructure/
+*.png

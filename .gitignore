@@ -152,3 +152,9 @@ tmp/
 .vscode/*
 .idea
 logs/
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+*.tfvars
+.terraform

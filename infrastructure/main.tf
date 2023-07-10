@@ -57,14 +57,14 @@ resource "azurerm_linux_web_app" "todo_app" {
     application_stack {
       python_version = "3.9"
     }
-    app_command_line = "cd layered-flask-todo-service-0.0.3 && pip install -r requirements.txt && python run.py"
-    always_on = false
+    app_command_line = "cd layered-flask-todo-service-0.0.4 && pip install -r requirements.txt && python run.py"
+    always_on        = false
   }
-  
+
 
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = "https://github.com/herrera-luis/layered-flask-todo-service/archive/refs/tags/v0.0.3.zip"
-    "DATABASE_URL"             = "postgresql://${var.db_username}:${var.db_password}@database/${local.database}"
+    "WEBSITE_RUN_FROM_PACKAGE" = "https://github.com/herrera-luis/layered-flask-todo-service/archive/refs/tags/v0.0.4.zip"
+    "DATABASE_URL"             = "postgresql://${var.db_username}@${var.db_hostname}:${var.db_password}@${var.db_hostname}.postgres.database.azure.com:5432/${local.database}?sslmode=require"
     "HOST"                     = "0.0.0.0"
     "PORT"                     = "80"
     "LOG_DIR"                  = "/home"
@@ -87,12 +87,13 @@ resource "azurerm_container_group" "db_migrator" {
   resource_group_name = local.group_name
   ip_address_type     = "Private"
   subnet_ids          = [data.terraform_remote_state.network.outputs.network.dev_networking.private_subnet_id]
+  restart_policy      = "Never"
   os_type             = "Linux"
 
   container {
     name   = "flask-db-migrations"
-    image  = "herreraluis/layered-flask-todo-service:latest"
-    cpu    = "1"
+    image  = "herreraluis/layered-flask-todo-service:v0.0.4"
+    cpu    = "0.5"
     memory = "1.5"
     ports {
       port     = 5000
@@ -102,12 +103,13 @@ resource "azurerm_container_group" "db_migrator" {
     commands = [
       "sh",
       "-c",
-      "flask db upgrade"
+      "flask", "db", "upgrade"
     ]
 
     environment_variables = {
-      DATABASE_URL = "postgresql://${var.db_username}:${var.db_password}@database/${local.database}"
-      FLASK_APP    = "/usr/src/app/run-db-migrations.py" 
+      "DATABASE_URL" = "postgresql://${var.db_username}@${var.db_hostname}:${var.db_password}@${var.db_hostname}.postgres.database.azure.com:5432/${local.database}?sslmode=require"
+      "FLASK_APP"    = "/usr/src/app/run-db-migrations.py"
+      "LOG_DIR"      = "/usr/src/app"
     }
   }
 

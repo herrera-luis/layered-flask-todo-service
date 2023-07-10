@@ -1,3 +1,9 @@
+variable "db_hostname" {
+  description = "The db hostname"
+  type        = string
+  sensitive   = true
+}
+
 variable "db_username" {
   description = "The db username"
   type        = string

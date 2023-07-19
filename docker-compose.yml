@@ -2,18 +2,21 @@ version: '3.5'
 services:
   api:
     build: ./
+    hostname: todo-api
     volumes:
       - ./:/usr/src/app/
     ports:
       - 8000:8000
     environment:
-      DATABASE_URL: "postgresql://todo-user:todo-password@database/todo"
+      DATABASE_URL: "postgresql://todo-user:todo-password@todo-db/todo"
       HOST: "0.0.0.0"
       PORT: 8000
       FLASK_DEBUG: 1
     depends_on:
       - database
       - db-upgrade-migration
+    networks:
+      - todo-network
 
   db-upgrade-migration:
     build: ./
@@ -21,9 +24,11 @@ services:
     volumes:
       - ./:/usr/src/app/
     environment:
-      DATABASE_URL: "postgresql://todo-user:todo-password@database/todo"
+      DATABASE_URL: "postgresql://todo-user:todo-password@todo-db/todo"
       FLASK_APP: /usr/src/app/run-db-migrations.py
     command: sh -c "flask db upgrade"
+    networks:
+      - todo-network
     depends_on:
       - db-generate-migration
 
@@ -33,16 +38,19 @@ services:
     volumes:
       - ./:/usr/src/app/
     environment:
-      DATABASE_URL: "postgresql://todo-user:todo-password@database/todo"
+      DATABASE_URL: "postgresql://todo-user:todo-password@todo-db/todo"
       FLASK_APP: /usr/src/app/run-db-migrations.py
     command: sh -c "flask db migrate -m "generating a new migration""
+    networks:
+      - todo-network
     depends_on:
       database:
         condition: service_healthy
 
   database:
     image: postgres:15.2-alpine
-    container_name: database
+    hostname: todo-db
+    container_name: todo-db
     environment:
       POSTGRES_PASSWORD: todo-password
       POSTGRES_USER: todo-user
@@ -58,3 +66,28 @@ services:
       interval: 5s
       timeout: 5s
       retries: 2
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - todo-network
+
+  pgadmin:
+    image: dpage/pgadmin4:7.4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'ti@example.com'
+      PGADMIN_DEFAULT_PASSWORD: 'admin-ti'
+    ports:
+      - 7070:80
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - todo-network
+
+
+volumes:
+  pgadmin-data:
+  postgres-data:
+
+networks:
+  todo-network:

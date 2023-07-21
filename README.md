@@ -28,18 +28,16 @@ cd layered-flask-todo-service/
 2. Build and run the app using Docker Compose:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 This command will build the Docker images and start the containers for the TODO App and its associated services (e.g., the database).
-
-3. Access the API at http://localhost:8000/api/v1/todos/ to start using the TODO App.
 
 4. To stop the app and remove the containers, press Ctrl+C in the terminal and then run:
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 5. For more information on the API endpoints and how to use them, please refer to the API documentation http://localhost:8000/api/v1/doc/.
 
-![todo](todo.png)
+![todos](todos.png)
